@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Header Pesan Diterima -->
+    <TextView
+        android:id="@+id/text_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pesan diterima:"
+        android:textStyle="bold" />
+
+    <!-- Menampilkan Isi Pesan -->
+    <TextView
+        android:id="@+id/text_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_header"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="12dp"
+        android:text="[Isi Pesan]" />
+
+    <!-- EditText untuk mengetik balasan -->
+    <EditText
+        android:id="@+id/replyEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/replyButton"
+        android:layout_alignParentBottom="true"
+        android:hint="Ketik balasan Anda..."
+        android:minHeight="48dp"
+        android:autofillHints=""
+        android:inputType="text" />
+
+    <!-- Tombol Kirim Balasan -->
+    <Button
+        android:id="@+id/replyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:onClick="sendReply"
+        android:text="SEND" />
+
+</RelativeLayout>
