@@ -9,9 +9,10 @@ import java.util.Locale
 object CalculatorEngine {
 
     private const val MAX_DIGITS = 15
+    private const val MAX_DECIMAL_PLACES = 10
     const val ERROR_DIVIDE_BY_ZERO = "Tidak bisa dibagi nol"
 
-    private val operators = setOf('+', '-', '×', '÷')
+    private val operators = setOf('+', '-', '−', '×', '÷')
 
     fun isOperator(c: Char): Boolean = c in operators
 
@@ -47,10 +48,11 @@ object CalculatorEngine {
     }
 
     fun appendOperator(expression: String, operator: Char): String {
-        require(isOperator(operator)) { "Invalid operator: $operator" }
+        val stdOp = normalizeOperator(operator)
+        require(isOperator(stdOp)) { "Invalid operator: $operator" }
 
         if (expression.isEmpty()) {
-            return if (operator == '-') "-" else ""
+            return if (stdOp == '-' || stdOp == '−') "−" else ""
         }
 
         var sanitized = expression
@@ -59,16 +61,15 @@ object CalculatorEngine {
         }
 
         if (sanitized.isEmpty()) {
-            return if (operator == '-') "-" else ""
+            return if (stdOp == '-' || stdOp == '−') "−" else ""
         }
 
         val lastChar = sanitized.last()
         if (isOperator(lastChar)) {
-            // Replace previous operator with new operator
-            return sanitized.dropLast(1) + operator
+            return sanitized.dropLast(1) + stdOp
         }
 
-        return sanitized + operator
+        return sanitized + stdOp
     }
 
     fun deleteLastChar(expression: String): String {
@@ -86,7 +87,7 @@ object CalculatorEngine {
             cleanExpr = cleanExpr.dropLast(1)
         }
 
-        if (cleanExpr.isEmpty() || cleanExpr == "-") return ""
+        if (cleanExpr.isEmpty() || cleanExpr == "-" || cleanExpr == "−") return ""
 
         val tokens = tokenize(cleanExpr) ?: return ""
         if (tokens.isEmpty()) return ""
@@ -103,7 +104,7 @@ object CalculatorEngine {
                     if (right.compareTo(BigDecimal.ZERO) == 0) {
                         return ERROR_DIVIDE_BY_ZERO
                     }
-                    val result = left.divide(right, 10, RoundingMode.HALF_UP)
+                    val result = left.divide(right, MAX_DECIMAL_PLACES, RoundingMode.HALF_UP)
                     step1Tokens.add(result)
                 } else {
                     val result = left.multiply(right)
@@ -142,7 +143,7 @@ object CalculatorEngine {
         var i = 0
         while (i < expression.length) {
             val c = expression[i]
-            val isUnaryMinus = c == '-' && (i == 0 || isOperator(expression[i - 1]))
+            val isUnaryMinus = (c == '-' || c == '−') && (i == 0 || isOperator(expression[i - 1]))
 
             if (isOperator(c) && !isUnaryMinus) {
                 if (currentToken.isNotEmpty()) {
@@ -163,11 +164,18 @@ object CalculatorEngine {
         return sb.toString()
     }
 
+    private fun normalizeOperator(c: Char): Char {
+        return when (c) {
+            '-' -> '−'
+            else -> c
+        }
+    }
+
     private fun getLastNumberToken(expression: String): String {
         var i = expression.length - 1
         while (i >= 0) {
             val c = expression[i]
-            val isUnaryMinus = c == '-' && (i == 0 || isOperator(expression[i - 1]))
+            val isUnaryMinus = (c == '-' || c == '−') && (i == 0 || isOperator(expression[i - 1]))
             if (isOperator(c) && !isUnaryMinus) {
                 return expression.substring(i + 1)
             }
@@ -178,16 +186,17 @@ object CalculatorEngine {
 
     private fun tokenize(expression: String): List<Any>? {
         val tokens = mutableListOf<Any>()
-        var currentNumber = StringBuilder()
+        val currentNumber = StringBuilder()
 
         var i = 0
         while (i < expression.length) {
             val c = expression[i]
-            val isUnaryMinus = c == '-' && (i == 0 || isOperator(expression[i - 1]))
+            val isUnaryMinus = (c == '-' || c == '−') && (i == 0 || isOperator(expression[i - 1]))
 
             if (isOperator(c) && !isUnaryMinus) {
                 if (currentNumber.isNotEmpty()) {
-                    val num = currentNumber.toString().toBigDecimalOrNull() ?: return null
+                    val numStr = currentNumber.toString().replace('−', '-')
+                    val num = numStr.toBigDecimalOrNull() ?: return null
                     tokens.add(num)
                     currentNumber.clear()
                 }
@@ -199,7 +208,8 @@ object CalculatorEngine {
         }
 
         if (currentNumber.isNotEmpty()) {
-            val num = currentNumber.toString().toBigDecimalOrNull() ?: return null
+            val numStr = currentNumber.toString().replace('−', '-')
+            val num = numStr.toBigDecimalOrNull() ?: return null
             tokens.add(num)
         }
 
@@ -207,15 +217,16 @@ object CalculatorEngine {
     }
 
     private fun formatNumber(bd: BigDecimal): String {
-        val stripped = bd.stripTrailingZeros()
-        val plainStr = if (stripped.scale() < 0) stripped.setScale(0).toPlainString() else stripped.toPlainString()
+        // Round to max 10 decimal places and strip trailing zeros
+        val rounded = bd.setScale(MAX_DECIMAL_PLACES, RoundingMode.HALF_UP).stripTrailingZeros()
+        val plainStr = if (rounded.scale() < 0) rounded.setScale(0).toPlainString() else rounded.toPlainString()
         return formatNumberToken(plainStr)
     }
 
     fun formatNumberToken(token: String): String {
         if (token.isEmpty()) return ""
 
-        val isNegative = token.startsWith('-')
+        val isNegative = token.startsWith('-') || token.startsWith('−')
         val absToken = if (isNegative) token.substring(1) else token
 
         val parts = absToken.split('.')
@@ -233,7 +244,7 @@ object CalculatorEngine {
             integerPartStr
         }
 
-        val prefix = if (isNegative) "-" else ""
+        val prefix = if (isNegative) "−" else ""
         return when {
             absToken.endsWith('.') -> "$prefix$formattedInt,"
             decimalPartStr != null -> "$prefix$formattedInt,$decimalPartStr"
