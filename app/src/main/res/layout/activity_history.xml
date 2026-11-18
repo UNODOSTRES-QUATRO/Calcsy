@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0F1115"
+    android:orientation="vertical"
+    tools:context=".HistoryActivity">
+
+    <!-- Header Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#171A21"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <!-- Tombol Back menggunakan Intent -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            android:src="@drawable/ic_back" />
+
+        <!-- Icon History -->
+        <ImageView
+            android:id="@+id/imgHistoryIcon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="12dp"
+            android:contentDescription="History Icon"
+            android:src="@drawable/ic_history" />
+
+        <!-- Judul Header -->
+        <TextView
+            android:id="@+id/tvHeaderTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:text="History"
+            android:textColor="#F2F4F8"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <!-- Tombol Hapus Riwayat (Optional) -->
+        <TextView
+            android:id="@+id/btnClearHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp"
+            android:text="Clear"
+            android:textColor="#FF7A7A"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Tempat Pesan Riwayat Kosong -->
+    <TextView
+        android:id="@+id/tvEmptyHistory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Belum ada riwayat perhitungan"
+        android:textColor="#8A93A6"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+    <!-- Daftar Riwayat (Scrollable dari Bawah ke Atas) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvHistory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:padding="16dp" />
+
+</LinearLayout>

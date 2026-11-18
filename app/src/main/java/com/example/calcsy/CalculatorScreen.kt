@@ -1,13 +1,7 @@
 package com.example.calcsy
 
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,23 +19,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -65,11 +50,11 @@ fun CalculatorScreen(
             .systemBarsPadding()
             .padding(16.dp)
     ) {
-        // Area Display (~35% tinggi layar)
+        // Top section: Display Area
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(0.35f)
+                .weight(1.2f)
                 .clip(RoundedCornerShape(24.dp))
                 .background(colors.displayBackground)
                 .padding(20.dp),
@@ -80,28 +65,29 @@ fun CalculatorScreen(
                 verticalArrangement = Arrangement.Bottom,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                // Ekspresi kecil (24sp, abu-abu)
+                // Small expression display
                 Text(
                     text = uiState.displayExpression,
                     color = colors.displayExpressionText,
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Normal,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Medium,
                     textAlign = TextAlign.End,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
-                    style = TextStyle(fontFeatureSettings = "tnum"),
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
-                // Hasil besar (56sp -> minimal 32sp jika panjang, tebal medium)
-                AutoResizingText(
+                // Big result display
+                Text(
                     text = uiState.result,
                     color = if (uiState.isError) colors.actionButtonText else colors.displayResultText,
-                    maxFontSize = if (uiState.isError) 28.sp else 56.sp,
-                    minFontSize = 32.sp,
-                    fontWeight = FontWeight.Medium,
+                    fontSize = if (uiState.isError) 28.sp else 44.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.End,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.fillMaxWidth()
                 )
             }
@@ -109,14 +95,14 @@ fun CalculatorScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Area Keypad (~65% tinggi layar): Grid 4 kolom x 5 baris
+        // Bottom section: 4 Columns x 5 Rows Grid
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(0.65f),
+                .weight(2.2f),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            // Baris 1: AC (lebar 2 kolom), DEL, ÷
+            // Row 1: AC (2 col), DEL, ÷
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -128,7 +114,6 @@ fun CalculatorScreen(
                     modifier = Modifier.weight(2f),
                     backgroundColor = colors.actionButtonBg,
                     textColor = colors.actionButtonText,
-                    fontSize = 24.sp,
                     onClick = {
                         triggerHaptic()
                         viewModel.onClear()
@@ -139,14 +124,9 @@ fun CalculatorScreen(
                     modifier = Modifier.weight(1f),
                     backgroundColor = colors.actionButtonBg,
                     textColor = colors.actionButtonText,
-                    fontSize = 24.sp,
                     onClick = {
                         triggerHaptic()
                         viewModel.onDelete()
-                    },
-                    onLongClick = {
-                        triggerHaptic()
-                        viewModel.onClear()
                     }
                 )
                 CalcButton(
@@ -154,9 +134,6 @@ fun CalculatorScreen(
                     modifier = Modifier.weight(1f),
                     backgroundColor = colors.operatorButtonBg,
                     textColor = colors.operatorButtonText,
-                    fontSize = 30.sp,
-                    isActiveOperator = uiState.activeOperator == '÷',
-                    accentColor = colors.operatorButtonText,
                     onClick = {
                         triggerHaptic()
                         viewModel.onOperatorInput('÷')
@@ -164,7 +141,7 @@ fun CalculatorScreen(
                 )
             }
 
-            // Baris 2: 7, 8, 9, ×
+            // Row 2: 7, 8, 9, ×
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -176,7 +153,6 @@ fun CalculatorScreen(
                     modifier = Modifier.weight(1f),
                     backgroundColor = colors.numberButtonBg,
                     textColor = colors.numberButtonText,
-                    fontSize = 28.sp,
                     onClick = {
                         triggerHaptic()
                         viewModel.onDigitInput('7')
@@ -187,7 +163,6 @@ fun CalculatorScreen(
                     modifier = Modifier.weight(1f),
                     backgroundColor = colors.numberButtonBg,
                     textColor = colors.numberButtonText,
-                    fontSize = 28.sp,
                     onClick = {
                         triggerHaptic()
                         viewModel.onDigitInput('8')
@@ -198,7 +173,6 @@ fun CalculatorScreen(
                     modifier = Modifier.weight(1f),
                     backgroundColor = colors.numberButtonBg,
                     textColor = colors.numberButtonText,
-                    fontSize = 28.sp,
                     onClick = {
                         triggerHaptic()
                         viewModel.onDigitInput('9')
@@ -209,9 +183,6 @@ fun CalculatorScreen(
                     modifier = Modifier.weight(1f),
                     backgroundColor = colors.operatorButtonBg,
                     textColor = colors.operatorButtonText,
-                    fontSize = 30.sp,
-                    isActiveOperator = uiState.activeOperator == '×',
-                    accentColor = colors.operatorButtonText,
                     onClick = {
                         triggerHaptic()
                         viewModel.onOperatorInput('×')
@@ -219,7 +190,7 @@ fun CalculatorScreen(
                 )
             }
 
-            // Baris 3: 4, 5, 6, −
+            // Row 3: 4, 5, 6, -
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -231,7 +202,6 @@ fun CalculatorScreen(
                     modifier = Modifier.weight(1f),
                     backgroundColor = colors.numberButtonBg,
                     textColor = colors.numberButtonText,
-                    fontSize = 28.sp,
                     onClick = {
                         triggerHaptic()
                         viewModel.onDigitInput('4')
@@ -242,7 +212,6 @@ fun CalculatorScreen(
                     modifier = Modifier.weight(1f),
                     backgroundColor = colors.numberButtonBg,
                     textColor = colors.numberButtonText,
-                    fontSize = 28.sp,
                     onClick = {
                         triggerHaptic()
                         viewModel.onDigitInput('5')
@@ -253,28 +222,24 @@ fun CalculatorScreen(
                     modifier = Modifier.weight(1f),
                     backgroundColor = colors.numberButtonBg,
                     textColor = colors.numberButtonText,
-                    fontSize = 28.sp,
                     onClick = {
                         triggerHaptic()
                         viewModel.onDigitInput('6')
                     }
                 )
                 CalcButton(
-                    text = "−",
+                    text = "-",
                     modifier = Modifier.weight(1f),
                     backgroundColor = colors.operatorButtonBg,
                     textColor = colors.operatorButtonText,
-                    fontSize = 30.sp,
-                    isActiveOperator = uiState.activeOperator == '−' || uiState.activeOperator == '-',
-                    accentColor = colors.operatorButtonText,
                     onClick = {
                         triggerHaptic()
-                        viewModel.onOperatorInput('−')
+                        viewModel.onOperatorInput('-')
                     }
                 )
             }
 
-            // Baris 4: 1, 2, 3, +
+            // Row 4: 1, 2, 3, +
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -286,7 +251,6 @@ fun CalculatorScreen(
                     modifier = Modifier.weight(1f),
                     backgroundColor = colors.numberButtonBg,
                     textColor = colors.numberButtonText,
-                    fontSize = 28.sp,
                     onClick = {
                         triggerHaptic()
                         viewModel.onDigitInput('1')
@@ -297,7 +261,6 @@ fun CalculatorScreen(
                     modifier = Modifier.weight(1f),
                     backgroundColor = colors.numberButtonBg,
                     textColor = colors.numberButtonText,
-                    fontSize = 28.sp,
                     onClick = {
                         triggerHaptic()
                         viewModel.onDigitInput('2')
@@ -308,7 +271,6 @@ fun CalculatorScreen(
                     modifier = Modifier.weight(1f),
                     backgroundColor = colors.numberButtonBg,
                     textColor = colors.numberButtonText,
-                    fontSize = 28.sp,
                     onClick = {
                         triggerHaptic()
                         viewModel.onDigitInput('3')
@@ -319,9 +281,6 @@ fun CalculatorScreen(
                     modifier = Modifier.weight(1f),
                     backgroundColor = colors.operatorButtonBg,
                     textColor = colors.operatorButtonText,
-                    fontSize = 30.sp,
-                    isActiveOperator = uiState.activeOperator == '+',
-                    accentColor = colors.operatorButtonText,
                     onClick = {
                         triggerHaptic()
                         viewModel.onOperatorInput('+')
@@ -329,7 +288,7 @@ fun CalculatorScreen(
                 )
             }
 
-            // Baris 5: 0 (lebar 2 kolom), . (titik desimal), =
+            // Row 5: 0 (2 col), , (decimal point), =
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -341,7 +300,6 @@ fun CalculatorScreen(
                     modifier = Modifier.weight(2f),
                     backgroundColor = colors.numberButtonBg,
                     textColor = colors.numberButtonText,
-                    fontSize = 28.sp,
                     onClick = {
                         triggerHaptic()
                         viewModel.onDigitInput('0')
@@ -352,7 +310,6 @@ fun CalculatorScreen(
                     modifier = Modifier.weight(1f),
                     backgroundColor = colors.numberButtonBg,
                     textColor = colors.numberButtonText,
-                    fontSize = 28.sp,
                     onClick = {
                         triggerHaptic()
                         viewModel.onDecimalInput()
@@ -363,7 +320,6 @@ fun CalculatorScreen(
                     modifier = Modifier.weight(1f),
                     backgroundColor = colors.equalsButtonBg,
                     textColor = colors.equalsButtonText,
-                    fontSize = 30.sp,
                     onClick = {
                         triggerHaptic()
                         viewModel.onEquals()
@@ -374,95 +330,29 @@ fun CalculatorScreen(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CalcButton(
     text: String,
     modifier: Modifier = Modifier,
-    backgroundColor: Color,
-    textColor: Color,
-    fontSize: TextUnit = 28.sp,
-    isActiveOperator: Boolean = false,
-    accentColor: Color = Color.Unspecified,
-    onClick: () -> Unit,
-    onLongClick: (() -> Unit)? = null
+    backgroundColor: androidx.compose.ui.graphics.Color,
+    textColor: androidx.compose.ui.graphics.Color,
+    onClick: () -> Unit
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
-    val isPressed by interactionSource.collectIsPressedAsState()
-
-    val scale by animateFloatAsState(
-        targetValue = if (isPressed) 0.96f else 1f,
-        label = "buttonScale"
-    )
-
-    val borderModifier = if (isActiveOperator && accentColor != Color.Unspecified) {
-        Modifier.border(BorderStroke(1.5.dp, accentColor), RoundedCornerShape(20.dp))
-    } else {
-        Modifier
-    }
-
     Box(
         modifier = modifier
             .fillMaxHeight()
             .heightIn(min = 64.dp)
-            .graphicsLayer {
-                scaleX = scale
-                scaleY = scale
-            }
-            .then(borderModifier)
             .clip(RoundedCornerShape(20.dp))
             .background(backgroundColor)
-            .combinedClickable(
-                interactionSource = interactionSource,
-                indication = null,
-                onClick = onClick,
-                onLongClick = onLongClick
-            ),
+            .clickable { onClick() },
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = text,
             color = textColor,
-            fontSize = fontSize,
+            fontSize = 24.sp,
             fontWeight = FontWeight.SemiBold,
-            textAlign = TextAlign.Center,
-            style = TextStyle(fontFeatureSettings = "tnum")
+            textAlign = TextAlign.Center
         )
     }
-}
-
-@Composable
-fun AutoResizingText(
-    text: String,
-    color: Color,
-    maxFontSize: TextUnit = 56.sp,
-    minFontSize: TextUnit = 32.sp,
-    fontWeight: FontWeight = FontWeight.Medium,
-    modifier: Modifier = Modifier
-) {
-    var currentFontSize by remember(text) { mutableStateOf(maxFontSize) }
-    var readyToDraw by remember(text) { mutableStateOf(false) }
-
-    Text(
-        text = text,
-        color = color,
-        fontSize = currentFontSize,
-        fontWeight = fontWeight,
-        textAlign = TextAlign.End,
-        maxLines = 1,
-        softWrap = false,
-        overflow = TextOverflow.Clip,
-        style = TextStyle(fontFeatureSettings = "tnum"),
-        onTextLayout = { textLayoutResult ->
-            if (textLayoutResult.didOverflowWidth && currentFontSize > minFontSize) {
-                val nextSize = (currentFontSize.value - 2).coerceAtLeast(minFontSize.value)
-                currentFontSize = nextSize.sp
-            } else {
-                readyToDraw = true
-            }
-        },
-        modifier = modifier.graphicsLayer {
-            alpha = if (readyToDraw) 1f else 0f
-        }
-    )
 }

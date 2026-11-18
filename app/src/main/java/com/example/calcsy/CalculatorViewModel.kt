@@ -10,9 +10,7 @@ data class CalculatorUiState(
     val rawExpression: String = "",
     val displayExpression: String = "",
     val result: String = "0",
-    val isError: Boolean = false,
-    val isEvaluated: Boolean = false,
-    val activeOperator: Char? = null
+    val isError: Boolean = false
 )
 
 class CalculatorViewModel : ViewModel() {
@@ -21,40 +19,27 @@ class CalculatorViewModel : ViewModel() {
     val uiState: StateFlow<CalculatorUiState> = _uiState.asStateFlow()
 
     fun onDigitInput(digit: Char) {
-        val currentState = _uiState.value
-        val baseRaw = if (currentState.isEvaluated || currentState.isError) "" else currentState.rawExpression
-        val newRaw = CalculatorEngine.appendDigit(baseRaw, digit)
-        updateState(newRaw, isEvaluated = false)
+        val currentRaw = _uiState.value.rawExpression
+        val newRaw = CalculatorEngine.appendDigit(currentRaw, digit)
+        updateState(newRaw)
     }
 
     fun onDecimalInput() {
-        val currentState = _uiState.value
-        val baseRaw = if (currentState.isEvaluated || currentState.isError) "" else currentState.rawExpression
-        val newRaw = CalculatorEngine.appendDecimal(baseRaw)
-        updateState(newRaw, isEvaluated = false)
+        val currentRaw = _uiState.value.rawExpression
+        val newRaw = CalculatorEngine.appendDecimal(currentRaw)
+        updateState(newRaw)
     }
 
     fun onOperatorInput(operator: Char) {
-        val currentState = _uiState.value
-        val baseRaw = if (currentState.isEvaluated && !currentState.isError) {
-            resultToRaw(currentState.result)
-        } else if (currentState.isError) {
-            ""
-        } else {
-            currentState.rawExpression
-        }
-        val newRaw = CalculatorEngine.appendOperator(baseRaw, operator)
-        updateState(newRaw, isEvaluated = false)
+        val currentRaw = _uiState.value.rawExpression
+        val newRaw = CalculatorEngine.appendOperator(currentRaw, operator)
+        updateState(newRaw)
     }
 
     fun onDelete() {
-        val currentState = _uiState.value
-        if (currentState.isEvaluated) {
-            onClear()
-            return
-        }
-        val newRaw = CalculatorEngine.deleteLastChar(currentState.rawExpression)
-        updateState(newRaw, isEvaluated = false)
+        val currentRaw = _uiState.value.rawExpression
+        val newRaw = CalculatorEngine.deleteLastChar(currentRaw)
+        updateState(newRaw)
     }
 
     fun onClear() {
@@ -67,32 +52,19 @@ class CalculatorViewModel : ViewModel() {
             onClear()
             return
         }
-        if (currentState.rawExpression.isEmpty()) return
-
-        val evalResult = CalculatorEngine.evaluate(currentState.rawExpression)
-        val isError = evalResult == CalculatorEngine.ERROR_DIVIDE_BY_ZERO
-
-        if (isError) {
+        if (currentState.result.isNotEmpty() && currentState.result != "0" && currentState.result != CalculatorEngine.ERROR_DIVIDE_BY_ZERO) {
+            val newRaw = resultToRaw(currentState.result)
             _uiState.update {
                 it.copy(
-                    result = evalResult,
-                    isError = true,
-                    isEvaluated = true
-                )
-            }
-        } else if (evalResult.isNotEmpty()) {
-            _uiState.update {
-                it.copy(
-                    result = evalResult,
-                    isError = false,
-                    isEvaluated = true,
-                    activeOperator = null
+                    rawExpression = newRaw,
+                    displayExpression = CalculatorEngine.formatExpressionForDisplay(newRaw),
+                    result = ""
                 )
             }
         }
     }
 
-    private fun updateState(newRaw: String, isEvaluated: Boolean) {
+    private fun updateState(newRaw: String) {
         val displayExpr = CalculatorEngine.formatExpressionForDisplay(newRaw)
         val evalResult = CalculatorEngine.evaluate(newRaw)
         val isError = evalResult == CalculatorEngine.ERROR_DIVIDE_BY_ZERO
@@ -103,25 +75,17 @@ class CalculatorViewModel : ViewModel() {
             else -> evalResult
         }
 
-        val activeOp = if (newRaw.isNotEmpty() && CalculatorEngine.isOperator(newRaw.last())) {
-            newRaw.last()
-        } else {
-            null
-        }
-
         _uiState.update {
             it.copy(
                 rawExpression = newRaw,
                 displayExpression = displayExpr,
                 result = displayResult,
-                isError = isError,
-                isEvaluated = isEvaluated,
-                activeOperator = activeOp
+                isError = isError
             )
         }
     }
 
     private fun resultToRaw(formattedResult: String): String {
-        return formattedResult.replace(".", "").replace(",", ".").replace("−", "-")
+        return formattedResult.replace(".", "").replace(",", ".")
     }
 }

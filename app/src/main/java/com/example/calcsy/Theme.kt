@@ -8,8 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 
 data class CalculatorColors(
     val screenBackground: Color,
@@ -29,7 +27,7 @@ data class CalculatorColors(
 val DarkCalculatorColors = CalculatorColors(
     screenBackground = Color(0xFF0F1115),
     displayBackground = Color(0xFF171A21),
-    displayExpressionText = Color(0xFF8A93A6),
+    displayExpressionText = Color(0xFF8E95A2),
     displayResultText = Color(0xFFF2F4F8),
     numberButtonBg = Color(0xFF232832),
     numberButtonText = Color(0xFFF2F4F8),
@@ -44,7 +42,7 @@ val DarkCalculatorColors = CalculatorColors(
 val LightCalculatorColors = CalculatorColors(
     screenBackground = Color(0xFFF5F7FA),
     displayBackground = Color(0xFFFFFFFF),
-    displayExpressionText = Color(0xFF6B7385),
+    displayExpressionText = Color(0xFF6C727F),
     displayResultText = Color(0xFF1A1D24),
     numberButtonBg = Color(0xFFFFFFFF),
     numberButtonText = Color(0xFF1A1D24),
@@ -57,11 +55,6 @@ val LightCalculatorColors = CalculatorColors(
 )
 
 val LocalCalculatorColors = staticCompositionLocalOf { DarkCalculatorColors }
-
-val TabularTextStyle = TextStyle(
-    fontFamily = FontFamily.Default,
-    fontFeatureSettings = "tnum"
-)
 
 @Composable
 fun CalcsyTheme(

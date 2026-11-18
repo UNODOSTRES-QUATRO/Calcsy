@@ -1,13 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
-    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
     namespace = "com.example.calcsy"
-    compileSdk {
-        version = release(37)
-    }
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.calcsy"
@@ -32,21 +29,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
-    implementation(platform(libs.compose.bom))
-    implementation(libs.activity.compose)
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.graphics)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.material3)
-    implementation(libs.lifecycle.viewmodel.compose)
-
-    debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.constraintlayout)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)

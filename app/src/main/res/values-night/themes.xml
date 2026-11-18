@@ -1,4 +1,4 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Base.Theme.Calcsy" parent="android:Theme.Material.NoActionBar">
+    <style name="Base.Theme.Calcsy" parent="Theme.AppCompat.DayNight.NoActionBar">
     </style>
 </resources>
