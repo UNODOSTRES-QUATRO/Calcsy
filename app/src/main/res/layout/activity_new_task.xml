@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F6F9">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header Sharpened Design -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="#00897B">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🧮 Kalkulator, Dropdown &amp; Intent App"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tugas Baru: UI Sharpened Theme, Dropdown, Alert &amp; Intent"
+                    android:textColor="#E0F2F1"
+                    android:textSize="13sp"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Form Dropdown & Kalkulator -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- 1. Dropdown Produk -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1. Pilih Produk (Dropdown Menu):"
+                    android:textStyle="bold"
+                    android:textColor="#2C3E50"
+                    android:textSize="14sp" />
+
+                <Spinner
+                    android:id="@+id/spNewProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="14dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:spinnerMode="dropdown" />
+
+                <!-- 2. Quantity Input -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2. Jumlah Pembelian (Qty):"
+                    android:textStyle="bold"
+                    android:textColor="#2C3E50"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/etNewQty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Masukkan jumlah barang"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    android:autofillHints=""
+                    android:text="1"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="14dp" />
+
+                <!-- 3. Dropdown Diskon -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3. Pilih Promo Diskon (Dropdown):"
+                    android:textStyle="bold"
+                    android:textColor="#2C3E50"
+                    android:textSize="14sp" />
+
+                <Spinner
+                    android:id="@+id/spNewDiscount"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="14dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:spinnerMode="dropdown" />
+
+                <!-- 4. Dropdown Pembayaran -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4. Metode Pembayaran (Dropdown):"
+                    android:textStyle="bold"
+                    android:textColor="#2C3E50"
+                    android:textSize="14sp" />
+
+                <Spinner
+                    android:id="@+id/spNewPayment"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:spinnerMode="dropdown" />
+
+                <!-- Tombol Hitung Kalkulator -->
+                <Button
+                    android:id="@+id/btnNewCalculate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="⚡ Hitung Total Kalkulator"
+                    android:backgroundTint="#00897B"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Panel Hasil Perhitungan & Aksi Intent/Alert -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📊 Hasil Kalkulasi Total"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#2C3E50" />
+
+                <TextView
+                    android:id="@+id/tvNewCalcResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tekan 'Hitung Total Kalkulator' untuk melihat hasil."
+                    android:textColor="#555555"
+                    android:textSize="14sp"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingExtra="3dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E0E0E0"
+                    android:layout_marginVertical="12dp" />
+
+                <!-- Alert Dialog Button -->
+                <Button
+                    android:id="@+id/btnNewAlert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🔔 Tampilkan Alert Dialog Notifikasi"
+                    android:backgroundTint="#F39C12"
+                    android:textStyle="bold" />
+
+                <!-- Explicit Intent Button -->
+                <Button
+                    android:id="@+id/btnNewExplicitIntent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🚀 Explicit Intent -> Buka NewTaskReceiptActivity"
+                    android:backgroundTint="#27AE60"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp" />
+
+                <!-- Implicit Intent Share Button -->
+                <Button
+                    android:id="@+id/btnNewImplicitShare"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="📲 Implicit Intent -> Bagikan Nota Belanja"
+                    android:backgroundTint="#2980B9"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp" />
+
+                <!-- Implicit Intent Call CS Button -->
+                <Button
+                    android:id="@+id/btnNewImplicitCall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="📞 Implicit Intent -> Panggil CS (08123456789)"
+                    android:backgroundTint="#8E44AD"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>

@@ -48,7 +48,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:backgroundTint="#6200EE"
-        android:onClick="showText"
         android:text="SUBMIT"
         android:textColor="#FFFFFF" />
 

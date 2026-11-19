@@ -42,7 +42,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:onClick="sendReply"
         android:text="SEND" />
 
 </RelativeLayout>
