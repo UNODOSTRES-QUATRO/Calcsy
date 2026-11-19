@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0F1115"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:background="#F5F7FA"
+    android:padding="16dp"
     tools:context=".BmiActivity">
 
-    <!-- Top Bar with Back Button -->
+    <!-- Top Bar dengan Tombol Back & Judul -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="12dp">
 
         <ImageButton
             android:id="@+id/btnBack"
@@ -24,101 +24,338 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Back"
             android:src="@drawable/ic_back"
-            app:tint="#1E293B" />
+            app:tint="#F2F4F8" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@id/btnBack"
+            android:text="Kalkulator BMI"
+            android:textColor="#F2F4F8"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
+    <!-- Area Display Input (~38% tinggi layar) -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.38"
+        android:background="@drawable/bg_display"
         android:orientation="vertical"
-        android:gravity="center_vertical">
+        android:padding="16dp">
 
-        <!-- Header Judul -->
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cek Kesehatanmu"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="#1E293B" />
-
-        <!-- Subjudul -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Masukkan data tubuh untuk menghitung Indeks Massa Tubuh (BMI)"
-            android:textSize="14sp"
-            android:textColor="#64748B"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="24dp" />
-
-        <!-- Kartu Putih Penampung Form -->
-        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="#FFFFFF">
+            android:text="Masukkan data tubuh Anda"
+            android:textColor="#8A93A6"
+            android:textSize="14sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+        <!-- Input Berat Badan -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Berat Badan (kg)"
+            android:textColor="#4FD1C5"
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
-                <!-- Input Berat Badan -->
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Berat Badan (kg)"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    android:layout_marginBottom="16dp">
+        <TextView
+            android:id="@+id/tvBerat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_input_focused"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="end"
+            android:hint="0"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:textColor="#F2F4F8"
+            android:textColorHint="#5A6375"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etBerat"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:maxLines="1" />
-                </com.google.android.material.textfield.TextInputLayout>
+        <!-- Input Tinggi Badan -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Tinggi Badan (cm)"
+            android:textColor="#4FD1C5"
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
-                <!-- Input Tinggi Badan -->
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Tinggi Badan (cm)"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    android:layout_marginBottom="24dp">
+        <TextView
+            android:id="@+id/tvTinggi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_input_normal"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="end"
+            android:hint="0"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:textColor="#F2F4F8"
+            android:textColorHint="#5A6375"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etTinggi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:maxLines="1" />
-                </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
-                <!-- Tombol Utama -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnHitung"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:text="Hitung Sekarang"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textAllCaps="false"
-                    app:cornerRadius="12dp"
-                    android:backgroundTint="#2563EB" />
+    <!-- Space antara Display dan Keypad -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="12dp" />
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+    <!-- Area Keypad Custom (~62% tinggi layar) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.62"
+        android:orientation="vertical">
+
+        <!-- Baris 1: AC, DEL, NEXT -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnClear"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_action"
+                android:text="AC"
+                android:textAllCaps="false"
+                android:textColor="#FF7A7A"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnDelete"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_action"
+                android:text="DEL"
+                android:textAllCaps="false"
+                android:textColor="#FF7A7A"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnNext"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_operator"
+                android:text="NEXT ➔"
+                android:textAllCaps="false"
+                android:textColor="#4FD1C5"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Baris 2: 7, 8, 9 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_number"
+                android:text="7"
+                android:textAllCaps="false"
+                android:textColor="#F2F4F8"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_number"
+                android:text="8"
+                android:textAllCaps="false"
+                android:textColor="#F2F4F8"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn9"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_number"
+                android:text="9"
+                android:textAllCaps="false"
+                android:textColor="#F2F4F8"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Baris 3: 4, 5, 6 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_number"
+                android:text="4"
+                android:textAllCaps="false"
+                android:textColor="#F2F4F8"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_number"
+                android:text="5"
+                android:textAllCaps="false"
+                android:textColor="#F2F4F8"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_number"
+                android:text="6"
+                android:textAllCaps="false"
+                android:textColor="#F2F4F8"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Baris 4: 1, 2, 3 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_number"
+                android:text="1"
+                android:textAllCaps="false"
+                android:textColor="#F2F4F8"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_number"
+                android:text="2"
+                android:textAllCaps="false"
+                android:textColor="#F2F4F8"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_number"
+                android:text="3"
+                android:textAllCaps="false"
+                android:textColor="#F2F4F8"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Baris 5: 0, ,, HITUNG -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_number"
+                android:text="0"
+                android:textAllCaps="false"
+                android:textColor="#F2F4F8"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnComma"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_number"
+                android:text=","
+                android:textAllCaps="false"
+                android:textColor="#F2F4F8"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnHitung"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="2"
+                android:background="@drawable/bg_button_equals"
+                android:text="HITUNG ="
+                android:textAllCaps="false"
+                android:textColor="#0F1115"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

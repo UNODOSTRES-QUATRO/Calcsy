@@ -2,12 +2,11 @@ package com.example.calcsy;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.material.button.MaterialButton;
 
 import java.util.Locale;
 
@@ -30,7 +29,7 @@ public class BmiResultActivity extends AppCompatActivity {
         tvKategori = findViewById(R.id.tvKategori);
         tvHasilAngka = findViewById(R.id.tvHasilAngka);
         tvSaran = findViewById(R.id.tvSaran);
-        MaterialButton btnHitungUlang = findViewById(R.id.btnHitungUlang);
+        Button btnHitungUlang = findViewById(R.id.btnHitungUlang);
 
         double bmi = getIntent().getDoubleExtra("EXTRA_BMI", 0.0);
 
@@ -38,7 +37,9 @@ public class BmiResultActivity extends AppCompatActivity {
 
         displayCategoryAndAdvice(bmi);
 
-        btnHitungUlang.setOnClickListener(v -> finish());
+        if (btnHitungUlang != null) {
+            btnHitungUlang.setOnClickListener(v -> finish());
+        }
     }
 
     private void displayCategoryAndAdvice(double bmi) {
