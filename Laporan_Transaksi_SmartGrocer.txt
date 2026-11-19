@@ -1,0 +1,17 @@
+﻿========================================
+      LAPORAN TRANSAKSI SMARTGROCER     
+========================================
+Tanggal Waktu : 29 October 2026 08:15:48
+Status Laporan: TERVERIFIKASI & VALID
+
+RINGKASAN PENJUALAN / TRANSAKSI:
+- Total Barang Terjual : 3 item
+- Susu UHT Full Cream (1L)       : Rp 18.000
+- Daging Sapi Fresh Slice (800g) : Rp 85.000
+- Bumbu & Bawang Segar (500g)    : Rp 22.000
+----------------------------------------
+TOTAL PENDAPATAN TRANSAKSI       : Rp 125.000
+
+STATUS PEMBAYARAN:
+Laporan resmi dicetak dari SmartGrocer Zaki.
+========================================
