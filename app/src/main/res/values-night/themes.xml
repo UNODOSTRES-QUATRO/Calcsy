@@ -1,14 +1,4 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-<<<<<<< HEAD
     <style name="Base.Theme.Calcsy" parent="Theme.AppCompat.DayNight.NoActionBar">
-=======
-    <!-- Base application theme. -->
-    <style name="Theme.Kalkulator" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">#2563EB</item>
-        <item name="colorPrimaryVariant">#1D4ED8</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="android:statusBarColor">#F5F7FA</item>
-        <item name="android:windowLightStatusBar">false</item>
->>>>>>> d2044fd5255eebadcd8e2d8834efe90239c4ff21
     </style>
 </resources>
