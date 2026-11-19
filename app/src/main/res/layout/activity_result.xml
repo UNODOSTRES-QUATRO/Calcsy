@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#F5F7FA"
+    android:gravity="center"
+    tools:context=".ResultActivity">
+
+    <!-- Judul Halaman Hasil -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hasil Analisis BMI"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#1E293B"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Kartu Putih Hasil BMI -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="6dp"
+        app:cardBackgroundColor="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="28dp"
+            android:gravity="center">
+
+            <!-- Status Kategori (Warna akan diubah lewat Kotlin/Java) -->
+            <TextView
+                android:id="@+id/tvKategori"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BERAT BADAN IDEAL"
+                android:textColor="#16A34A"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1" />
+
+            <!-- Skor Angka BMI -->
+            <TextView
+                android:id="@+id/tvHasilAngka"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20.8"
+                android:textSize="56sp"
+                android:textStyle="bold"
+                android:textColor="#1E293B"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Deskripsi Saran Kesehatan -->
+            <TextView
+                android:id="@+id/tvSaran"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kerja bagus! Pertahankan pola makan seimbang dan rutinitas olahraga harianmu."
+                android:textSize="15sp"
+                android:textColor="#64748B"
+                android:textAlignment="center"
+                android:lineSpacingExtra="4dp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Tombol Outlined untuk Kembali -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnHitungUlang"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Hitung Ulang"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:textColor="#2563EB"
+        app:strokeColor="#2563EB"
+        app:strokeWidth="1.5dp"
+        app:cornerRadius="12dp"
+        android:layout_marginTop="32dp" />
+
+</LinearLayout>

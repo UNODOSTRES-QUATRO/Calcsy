@@ -3,6 +3,7 @@ plugins {
 }
 
 android {
+<<<<<<< HEAD
     namespace = "com.example.calcsy"
     compileSdk = 35
 
@@ -10,6 +11,17 @@ android {
         applicationId = "com.example.calcsy"
         minSdk = 26
         targetSdk = 35
+=======
+    namespace = "com.example.kalkulator"
+    compileSdk {
+        version = release(37)
+    }
+
+    defaultConfig {
+        applicationId = "com.example.kalkulator"
+        minSdk = 24
+        targetSdk = 37
+>>>>>>> d2044fd5255eebadcd8e2d8834efe90239c4ff21
         versionCode = 1
         versionName = "1.0"
 
@@ -17,6 +29,7 @@ android {
     }
 
     buildTypes {
+<<<<<<< HEAD
         debug {
             isMinifyEnabled = true
             isShrinkResources = true
@@ -32,6 +45,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+=======
+        release {
+            optimization {
+                enable = false
+            }
+>>>>>>> d2044fd5255eebadcd8e2d8834efe90239c4ff21
         }
     }
     compileOptions {
@@ -41,6 +60,7 @@ android {
 }
 
 dependencies {
+<<<<<<< HEAD
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
@@ -49,3 +69,13 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.ext.junit)
 }
+=======
+    implementation(libs.activity.ktx)
+    implementation(libs.appcompat)
+    implementation(libs.constraintlayout)
+    implementation(libs.material)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.ext.junit)
+}
+>>>>>>> d2044fd5255eebadcd8e2d8834efe90239c4ff21

@@ -1,3 +1,7 @@
 <resources>
+<<<<<<< HEAD
     <string name="app_name">Calcsy</string>
+=======
+    <string name="app_name">Kalkulator</string>
+>>>>>>> d2044fd5255eebadcd8e2d8834efe90239c4ff21
 </resources>
