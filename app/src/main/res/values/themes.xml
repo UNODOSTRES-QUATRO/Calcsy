@@ -1,5 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Base.Theme.Calcsy" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="Base.Theme.Calcsy" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#2563EB</item>
+        <item name="colorPrimaryVariant">#1D4ED8</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="android:statusBarColor">#0F1115</item>
     </style>
+
     <style name="Theme.Calcsy" parent="Base.Theme.Calcsy" />
 </resources>
