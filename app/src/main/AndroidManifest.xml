@@ -30,6 +30,17 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="DiscouragedOrientationLock" />
+
+        <activity
+            android:name=".BmiActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".BmiResultActivity"
+            android:exported="false"
+            android:parentActivityName=".BmiActivity" />
     </application>
 
 </manifest>

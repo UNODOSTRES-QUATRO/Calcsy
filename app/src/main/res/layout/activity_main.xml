@@ -9,7 +9,7 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
-    <!-- Top Bar dengan Tombol History di Kanan Atas -->
+    <!-- Top Bar dengan Tombol BMI & History di Kanan Atas -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,16 +24,32 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <!-- Tombol History di Kanan Atas yang Membuka HistoryActivity menggunakan Intent -->
-        <ImageButton
-            android:id="@+id/btnHistory"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="History"
-            android:src="@drawable/ic_history" />
+            android:orientation="horizontal">
+
+            <!-- Tombol BMI Calculator -->
+            <ImageButton
+                android:id="@+id/btnBmi"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="BMI Calculator"
+                android:src="@drawable/ic_bmi" />
+
+            <!-- Tombol History di Kanan Atas -->
+            <ImageButton
+                android:id="@+id/btnHistory"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="History"
+                android:src="@drawable/ic_history" />
+        </LinearLayout>
     </RelativeLayout>
 
     <!-- Area Display (~38% tinggi layar) -->

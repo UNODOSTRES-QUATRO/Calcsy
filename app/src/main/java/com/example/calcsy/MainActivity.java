@@ -65,6 +65,15 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+        // Intent ke BmiActivity saat tombol BMI di kanan atas diklik
+        ImageButton btnBmi = findViewById(R.id.btnBmi);
+        if (btnBmi != null) {
+            btnBmi.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, BmiActivity.class);
+                startActivity(intent);
+            });
+        }
+
         // Menghubungkan Tombol
         setupNumberButtons();
         setupOperatorButtons();
