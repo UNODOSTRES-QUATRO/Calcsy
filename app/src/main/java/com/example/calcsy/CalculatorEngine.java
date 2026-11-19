@@ -119,24 +119,24 @@ public class CalculatorEngine {
     }
 
     /**
-     * Membersihkan seluruh ekspresi.
+     * Membersihkan operator atau desimal menggantung di akhir ekspresi.
      */
-    public static String clear() {
-        return "";
+    public static String getCleanExpression(String expression) {
+        if (expression == null || expression.isEmpty()) {
+            return "";
+        }
+        String cleanExpr = expression;
+        while (!cleanExpr.isEmpty() && (isOperator(cleanExpr.charAt(cleanExpr.length() - 1)) || cleanExpr.charAt(cleanExpr.length() - 1) == '.')) {
+            cleanExpr = cleanExpr.substring(0, cleanExpr.length() - 1);
+        }
+        return cleanExpr;
     }
 
     /**
      * Menghitung (evaluasi) hasil dari ekspresi matematika.
      */
     public static String evaluate(String expression) {
-        if (expression == null || expression.isEmpty()) {
-            return "";
-        }
-
-        String cleanExpr = expression;
-        while (!cleanExpr.isEmpty() && (isOperator(cleanExpr.charAt(cleanExpr.length() - 1)) || cleanExpr.charAt(cleanExpr.length() - 1) == '.')) {
-            cleanExpr = cleanExpr.substring(0, cleanExpr.length() - 1);
-        }
+        String cleanExpr = getCleanExpression(expression);
 
         if (cleanExpr.isEmpty() || cleanExpr.equals("-") || cleanExpr.equals("−")) {
             return "";

@@ -141,23 +141,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onDigitInput(char digit) {
+        if (isEvaluated) {
+            rawExpression = "";
+            isEvaluated = false;
+        }
         String baseRaw = isError ? "" : rawExpression;
         rawExpression = CalculatorEngine.appendDigit(baseRaw, digit);
-        isEvaluated = false;
         updateUi();
     }
 
     private void onDecimalInput() {
+        if (isEvaluated) {
+            rawExpression = "";
+            isEvaluated = false;
+        }
         String baseRaw = isError ? "" : rawExpression;
         rawExpression = CalculatorEngine.appendDecimal(baseRaw);
-        isEvaluated = false;
         updateUi();
     }
 
     private void onOperatorInput(char operator) {
+        if (isEvaluated) {
+            isEvaluated = false;
+        }
         String baseRaw = isError ? "" : rawExpression;
         rawExpression = CalculatorEngine.appendOperator(baseRaw, operator);
-        isEvaluated = false;
         updateUi();
     }
 
@@ -190,9 +198,10 @@ public class MainActivity extends AppCompatActivity {
             onClear();
             return;
         }
-        if (rawExpression.isEmpty()) return;
+        String cleanExpr = CalculatorEngine.getCleanExpression(rawExpression);
+        if (cleanExpr.isEmpty() || cleanExpr.equals("-") || cleanExpr.equals("−")) return;
 
-        String evalResult = CalculatorEngine.evaluate(rawExpression);
+        String evalResult = CalculatorEngine.evaluate(cleanExpr);
         isError = CalculatorEngine.ERROR_DIVIDE_BY_ZERO.equals(evalResult);
 
         if (isError) {
@@ -200,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
             tvResult.setTextColor(0xFFFF7A7A);
             isEvaluated = true;
         } else if (!evalResult.isEmpty()) {
-            String displayExpr = CalculatorEngine.formatExpressionForDisplay(rawExpression);
+            String displayExpr = CalculatorEngine.formatExpressionForDisplay(cleanExpr);
             String fullEquation = displayExpr + " = " + evalResult;
 
             // 1. Simpan ke Database SQLite lokal
@@ -217,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
             rawExpression = resultToRaw(evalResult);
             isEvaluated = true;
 
+            tvExpression.setText(displayExpr);
             tvResult.setText(evalResult);
             tvResult.setTextColor(0xFFF2F4F8);
         }
