@@ -33,14 +33,19 @@ public class BmiEngine {
     }
 
     public static String getAdvice(double bmi) {
+        return getAdvice(bmi, true);
+    }
+
+    public static String getAdvice(double bmi, boolean isMale) {
+        String title = isMale ? "Pria" : "Wanita";
         if (bmi < 18.5) {
-            return "Berat badan Anda kurang. Disarankan untuk meningkatkan asupan nutrisi seimbang.";
+            return "Kategori Kurang Berat Badan untuk " + title + ". Disarankan untuk meningkatkan asupan nutrisi seimbang dan pembentukan massa otot.";
         } else if (bmi < 25.0) {
-            return "Kerja bagus! Pertahankan pola makan seimbang dan rutinitas olahraga harianmu.";
+            return "Kerja bagus! Postur tubuh ideal untuk " + title + ". Pertahankan pola makan seimbang dan olahraga teratur.";
         } else if (bmi < 30.0) {
-            return "Anda memiliki kelebihan berat badan. Cobalah untuk mengatur pola makan dan tingkatkan aktivitas fisik.";
+            return "Kategori Kelebihan Berat Badan untuk " + title + ". Cobalah untuk mengatur pola makan dan tingkatkan aktivitas fisik harian.";
         } else {
-            return "Indeks massa tubuh Anda masuk kategori obesitas. Disarankan berkonsultasi dengan profesional kesehatan.";
+            return "Kategori Obesitas untuk " + title + ". Disarankan berkonsultasi dengan profesional kesehatan atau ahli gizi.";
         }
     }
 }

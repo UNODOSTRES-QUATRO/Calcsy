@@ -3,8 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    android:background="@drawable/bg_display"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/bg_card_dark"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -14,7 +17,7 @@
         android:layout_height="wrap_content"
         android:gravity="end"
         android:textColor="#8A93A6"
-        android:textSize="18sp"
+        android:textSize="16sp"
         tools:text="125 + 50" />
 
     <TextView
@@ -24,7 +27,7 @@
         android:layout_marginTop="4dp"
         android:gravity="end"
         android:textColor="#4FD1C5"
-        android:textSize="26sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         tools:text="= 175" />
 </LinearLayout>

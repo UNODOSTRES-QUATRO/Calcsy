@@ -13,10 +13,24 @@ import java.util.List;
  */
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
 
-    private List<HistoryItem> historyList;
+    public interface OnItemClickListener {
+        void onItemClick(HistoryItem item);
+    }
+
+    private final List<HistoryItem> historyList;
+    private OnItemClickListener listener;
 
     public HistoryAdapter(List<HistoryItem> historyList) {
         this.historyList = historyList;
+    }
+
+    public HistoryAdapter(List<HistoryItem> historyList, OnItemClickListener listener) {
+        this.historyList = historyList;
+        this.listener = listener;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -32,6 +46,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         HistoryItem item = historyList.get(position);
         holder.tvItemExpression.setText(item.getExpression());
         holder.tvItemResult.setText("= " + item.getResult());
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(item);
+            }
+        });
     }
 
     @Override
